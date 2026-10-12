@@ -1,7 +1,10 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ewan ko</title>
+  <title>i love you for eternity</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
@@ -39,13 +42,56 @@
       filter: grayscale(100%);
     }
 
-    /* Hide the music player */
     #music {
       display: none;
     }
 
     .ending {
       margin-top: 60px;
+    }
+
+    /* Flashing button */
+    #revealBtn {
+      display: block;
+      margin: 40px auto;
+      padding: 12px 24px;
+      background: transparent;
+      color: white;
+      border: 1px solid #555;
+      font-size: 14px;
+      cursor: pointer;
+      animation: flash 2s infinite;
+    }
+
+    @keyframes flash {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.35;
+      }
+    }
+
+    /* Hidden picture */
+    #hiddenPhoto {
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: opacity 3s ease, max-height 3s ease;
+    }
+
+    #hiddenPhoto.show {
+      opacity: 1;
+      max-height: 800px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #revealBtn {
+        animation: none;
+      }
+      #hiddenPhoto {
+        transition: none;
+      }
     }
   </style>
 </head>
@@ -58,7 +104,9 @@
 
     <!-- Hidden music -->
     <audio id="music" loop>
-      <source src="NIKI - Paths (Official Lyric Video).mp3" type="audio/mpeg">
+      <source
+        src="NIKI - Paths (Official Lyric Video).mp3"
+        type="audio/mpeg">
     </audio>
 
     <p>
@@ -68,6 +116,7 @@
     <p>
       Maybe because there are still things I never learned
       how to say when you were here.
+    </p>
 
     <p>
       I thought that with enough time, you'd eventually become
@@ -83,6 +132,7 @@
       Not beside me. Not in my life anymore.
       Just somewhere in the quiet parts of me
       that I can't seem to reach.
+    </p>
 
     <p>
       I miss you, Carvie.
@@ -106,14 +156,33 @@
       — Adamm
     </p>
 
+    <!-- Picture reveal button -->
+    <button id="revealBtn" onclick="showPhoto()">
+      I love you
+    </button>
+
+    <!-- Picture appears here -->
+    <div id="hiddenPhoto">
+      <img
+        src="file_0000000068e48207b7fbf67cfc871001.png"
+        alt="A memory"
+        class="photo">
+    </div>
+
   </div>
 
   <script>
-    // Start the music when the page is first touched/clicked
+    // Play music after the first tap
     document.addEventListener("click", function () {
       const music = document.getElementById("music");
-      music.play();
+      music.play().catch(() => {});
     }, { once: true });
+
+    // Reveal the picture
+    function showPhoto() {
+      document.getElementById("hiddenPhoto").classList.add("show");
+      document.getElementById("revealBtn").style.display = "none";
+    }
   </script>
 
 </body>
